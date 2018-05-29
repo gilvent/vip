@@ -3,38 +3,40 @@ import MarketScreen from '../scenes/main/Market';
 import LoginScreen from '../scenes/main/Login';
 import AccountScreen from '../scenes/main/Account';
 import Sidebar from '../scenes/main/Sidebar';
+import InfoScreen from '../scenes/main/Info';
 
 const SidebarNavigator = DrawerNavigator({
-    Market : { screen : MarketScreen},
-    Account : { screen : AccountScreen},
-    
-
+    Market: { screen: MarketScreen},
+    Account: { screen: AccountScreen},
+    Info: { screen: InfoScreen}
 },
 {
     contentComponent: Sidebar
 });
 
 const LoggedInNavigator = StackNavigator({
-    DrawerStack : { screen : SidebarNavigator}
+    DrawerStack: { screen: SidebarNavigator}
 },
 {
-    headerMode : 'none',
+    headerMode: 'none',
     
 });
 
 const LoggedOutNavigator = StackNavigator({
-    Login : { screen : LoginScreen}
+    Login: { screen: LoginScreen},
+    Market: { screen: MarketScreen},
+    Info: { screen: InfoScreen}
 },
 {
-    headerMode : 'none',
-    initialRouteName : 'Login'
+    headerMode: 'none',
+    initialRouteName: 'Login'
 });
 
 export const AppNavigator = StackNavigator({
-    LoggedOut : { screen : LoggedOutNavigator},
-    LoggedIn : { screen : LoggedInNavigator}
+    LoggedOut: { screen: LoggedOutNavigator},
+    LoggedIn: { screen: LoggedInNavigator}
 },
 {
-    headerMode : 'none',
+    headerMode: 'none',
  
 });

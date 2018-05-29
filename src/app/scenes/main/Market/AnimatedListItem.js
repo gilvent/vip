@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Animated, StyleSheet } from 'react-native'
 import {Content,H2, Title,Text,Header, 
-    Left,Body,Right,Icon,ListItem } from'native-base';
+    Left,Body,Right,Icon,ListItem,Spinner } from'native-base';
 import {COLOR_PRIMARY} from '../../../commons/styles';
 
 class AnimatedListItem extends Component {
@@ -48,6 +48,7 @@ class AnimatedListItem extends Component {
                 <AnimatedRight style={{backgroundColor: highlight}}>
                     <Text style={{color : COLOR_PRIMARY}}>
                     {lastPrice} </Text>
+                    {!lastPrice && <Spinner color={COLOR_PRIMARY}/>}
                 </AnimatedRight>
             </AnimatedItem>
         )

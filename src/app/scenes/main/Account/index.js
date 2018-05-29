@@ -9,14 +9,15 @@ import { connect } from 'react-redux';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import userSelectors from '../../../redux-core/selectors/entities/user';
 import userAction from '../../../redux-core/actions/user';
+import FooterNav from '../../../components/FooterNav';
+
 class Account extends Component{
     componentWillMount(){
         let {GetUser}  = this.props;
         GetUser();
     }
     render(){
-        const {LogoutSuccess, userInfo, idr,activeBalance,activeHold} = this.props;
-        
+        const {LogoutSuccess,userInfo,idr,activeBalance,activeHold,estimatedAsset} = this.props;
         return (
             <Container>
                 <Header style={styles.header} hasTabs>
@@ -33,13 +34,13 @@ class Account extends Component{
                 </Header>
                 <Content>
                     <ContentHeader name={userInfo.name}/> 
-                     <Tabs tabBarUnderlineStyle={{backgroundColor:COLOR_PRIMARY}}>
+                    <Tabs tabBarUnderlineStyle={{backgroundColor:COLOR_PRIMARY}}>
                         <Tab heading="Info" 
                         tabStyle={{backgroundColor: "#FFFFFF"}} 
                         activeTabStyle={{backgroundColor: '#FFFFFF'}} 
                         textStyle={{color:COLOR_PRIMARY}} 
                         activeTextStyle={{color: COLOR_PRIMARY, fontWeight: 'normal'}}>
-                            <InfoTabContent userInfo={userInfo}/>
+                            <InfoTabContent userInfo={userInfo} asset={estimatedAsset}/>
                         </Tab>
  
                         <Tab heading="Balance" 
@@ -53,6 +54,7 @@ class Account extends Component{
                     
                     </Tabs>
                 </Content>
+                <FooterNav navigate={this.props.navigation.navigate} scene="Account"/>
             </Container>
         );
     }
@@ -63,8 +65,8 @@ function mapStateToProps(state){
         userInfo : userSelectors.getUserInfo(state),
         activeHold : userSelectors.getActiveHold(state),
         activeBalance : userSelectors.getActiveBalance(state),
-        idr : userSelectors.getIDR(state)
-
+        idr : userSelectors.getIDR(state),
+        estimatedAsset : userSelectors.getEstimatedAsset(state)
     };
 }
 

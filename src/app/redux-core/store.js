@@ -6,6 +6,7 @@ import logger from 'redux-logger';
 import authSaga from './sagas/auth';
 import userSaga from './sagas/user';
 import marketSaga from './sagas/market';
+
 //create middleware
 const sagaMiddleware = createSagaMiddleware();
 const navMiddleware = createReactNavigationReduxMiddleware(

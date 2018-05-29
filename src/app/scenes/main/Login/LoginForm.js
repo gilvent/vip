@@ -3,15 +3,17 @@ import { StyleSheet } from 'react-native';
 import { reduxForm, Field, reset } from 'redux-form';
 import { Form, Item, Input, Button,Text,Label,Content} from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
-import { COLOR_SECONDARY } from '../../../commons/styles';
+import { COLOR_SECONDARY,COLOR_PRIMARY } from '../../../commons/styles';
 
+
+//validation variable
+const required = value => value ? undefined : 'required';
 
 class LoginForm extends Component{
-    
     renderInput({input,label,meta: { touched, error, warning }}){
         var hasError= false;
         if(error !== undefined){
-        hasError= true;
+            hasError= true;
         }
         return (
             <Item error= {hasError} inlineLabel>
@@ -21,10 +23,9 @@ class LoginForm extends Component{
                     onBlur={input.onBlur}
                     onFocus={input.onFocus}
                     value={input.value} />
-                {hasError ? <Text>{error}</Text> : <Text />}
+                {hasError ? <Text style={styles.errorText}>{error}</Text> : <Text />}
             </Item>
         )
-        
     }
     render(){
         const {handleSubmit,login} = this.props;
@@ -35,11 +36,13 @@ class LoginForm extends Component{
                         label={'API Key'}
                         name={'APIKey'}
                         component={this.renderInput}
+                        validate={[required]}
                     /> 
                     <Field
                         label={'Secret'}
                         name={'Secret'}
                         component={this.renderInput}
+                        validate={[required]}
                     />
                     
                     <Button style={styles.loginButton} onPress={handleSubmit(login)}>
@@ -64,8 +67,12 @@ export default reduxForm({
 
 const styles = StyleSheet.create({
     loginButton :{
-        backgroundColor :COLOR_SECONDARY,
+        alignSelf: "center",
+        backgroundColor :COLOR_PRIMARY,
         marginTop: 10
+    },
+    errorText:{
+        color: COLOR_SECONDARY
     }
 });
 

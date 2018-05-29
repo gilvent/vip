@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Container,Content,H2, Title,Text,Header, 
     Left,Body,Right,Icon, Button, Tabs, Tab, Card,CardItem,ListItem } from'native-base';
 import { StyleSheet,FlatList,Image } from 'react-native';
-import {COLOR_PRIMARY} from '../../../commons/styles';
+import {COLOR_PRIMARY, COLOR_SECONDARY, GRAY_TEXT} from '../../../commons/styles';
 import AnimatedListItem from './AnimatedListItem';
 
 class PricesContent extends Component{
@@ -40,28 +40,11 @@ class PricesContent extends Component{
         return (
             <Content>
                 <Card>
-                    <CardItem header style={styles.cardHeader}>
-                        <Image source={require('../../../../images/default-profile-background.jpg')} 
-                               style={styles.backgroundImage}/>
-                        <Body>
-                            <Text style={styles.textHeader}>Asset</Text>
-                        </Body>
-                        <Right>
-                            <Text style={styles.textHeader}>Last Price</Text>
-                        </Right>
-                    </CardItem>
                     <FlatList
                         data={this.convertDataToObjectArray(prices)}
                         renderItem = {(
                             {item}) => 
-                            // <ListItem icon>
-                            //     <Body><Text>{item.key}</Text></Body>
-                            //     <Right>
-                            //         <Text style={styles.numbers}>
-                            //         {item.value} </Text>
-                            //     </Right>
-                            // </ListItem>
-                            <AnimatedListItem name={item.key} lastPrice ={item.value} trend = {item.trend}/>
+                            <AnimatedListItem name={item.key} lastPrice={item.value} trend={item.trend}/>
                         }    
                         />
                 </Card>
@@ -75,10 +58,10 @@ export default PricesContent;
 
 const styles = StyleSheet.create({
     cardHeader : {
-        backgroundColor : COLOR_PRIMARY,
+        backgroundColor : GRAY_TEXT,
     },
     textHeader : {
-        color : "white"
+        color : COLOR_SECONDARY
     },
     numbers : {
         color : COLOR_PRIMARY
@@ -86,6 +69,6 @@ const styles = StyleSheet.create({
     backgroundImage: {
         flex: 1,
         resizeMode: 'cover', // or 'stretch',
-        position: "absolute"
+        position: 'absolute'
     }
 });

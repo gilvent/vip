@@ -14,12 +14,12 @@ class ContentHeader extends Component{
                     <Image source={require('../../../../images/default-profile-background.jpg')} style={styles.backgroundImage}/>
                     <Col style={{alignItems: 'center'}} >
                             <Thumbnail circular large 
-                                source={{uri: 'https://vip.bitcoin.co.id/v2/images/photos/default_user_icon.jpg'}} 
+                                source={require('../../../../images/tinker.png')} 
                                 />
                             <H2>{name}</H2>           
                             <Row style={styles.userActionContainer}>
                                 <Button small bordered style={{borderColor:COLOR_SECONDARY}}>
-                                    <Text style={{color:COLOR_SECONDARY}}>BITCOIN JEDI</Text>
+                                    <Text style={{color:COLOR_SECONDARY}}>RANK</Text>
                                 </Button>
                             </Row>
                     </Col>

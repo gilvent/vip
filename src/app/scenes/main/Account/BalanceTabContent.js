@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Container,Content,H2, Title,Text,Header, 
-    Left,Body,Right,Icon, Button, Tabs, Tab, Card,CardItem,ListItem } from'native-base';
+    Left,Body,Right,Icon, Button, Tabs, Tab, Card,CardItem,ListItem,Separator } from'native-base';
 import { StyleSheet,FlatList,Image } from 'react-native';
-import {COLOR_PRIMARY} from '../../../commons/styles';
+import {COLOR_PRIMARY, GRAY_TEXT} from '../../../commons/styles';
 
 
 class BalanceTabContent extends Component{
@@ -21,20 +21,16 @@ class BalanceTabContent extends Component{
 
     render(){
         let {activeBalance,activeHold, idr} =this.props;
-        
         return (
             <Content>
-                <Card>
-                    <CardItem header style={styles.cardHeader}>
-                        <Image source={require('../../../../images/default-profile-background.jpg')} 
-                               style={styles.backgroundImage}/>
-                        <Text style={styles.textHeader}>Current Balance</Text>
-                    </CardItem>
-                    <CardItem>
-                        <Body>
-                            <H2 style={styles.numbers}>Rp {idr.balance} </H2>
-                        </Body>
-                    </CardItem>
+                    <ListItem itemDivider first>
+                        <Text style={styles.headerText}>Currently Active</Text>
+                    </ListItem>
+                    <ListItem>
+                            <Left>
+                                <Text>Rp {idr.balance} </Text>  
+                            </Left>      
+                    </ListItem>
                     <FlatList
                     data={this.convertDataToObjectArray(activeBalance)}
                     renderItem = {(
@@ -46,19 +42,22 @@ class BalanceTabContent extends Component{
                             </Right>
                         </ListItem>}    
                     />
-                </Card>
-                
-                <Card>
-                    <CardItem header style={styles.cardHeader}>
-                        <Image source={require('../../../../images/default-profile-background.jpg')} 
-                               style={styles.backgroundImage}/>
-                        <Text style={styles.textHeader}>Balance On Hold</Text>
-                    </CardItem>
-                    <CardItem>
-                        <Body>
-                            <H2 style={styles.numbers}>Rp {idr.hold} </H2>
-                        </Body>
-                    </CardItem>
+                    {
+                        Object.keys(activeBalance).length === 0 &&
+                        <ListItem icon>
+                            <Text style={styles.noDataText}>You have no active coin</Text>        
+                        </ListItem>
+                    }     
+
+
+                    <ListItem itemDivider>
+                        <Text style={styles.headerText}>On Hold</Text>
+                    </ListItem>
+                    <ListItem>
+                            <Left>
+                                <Text>Rp {idr.hold}</Text>       
+                            </Left> 
+                    </ListItem>
                     <FlatList
                     data={this.convertDataToObjectArray(activeHold)}
                     renderItem = {(
@@ -70,8 +69,12 @@ class BalanceTabContent extends Component{
                             </Right>
                         </ListItem>}
                     />
-                </Card>
-                
+                    {
+                        Object.keys(activeHold).length === 0 &&
+                        <ListItem icon>
+                            <Text style={styles.noDataText}>You have no coin on hold</Text>        
+                        </ListItem>
+                    }                
             </Content>
         );
     }
@@ -94,5 +97,12 @@ const styles = StyleSheet.create({
         flex: 1,
         resizeMode: 'cover', // or 'stretch',
         position: "absolute"
+    },
+    headerText:{
+        fontSize:15,
+    },
+    noDataText: {
+        color: GRAY_TEXT,
+        fontSize: 12
     }
 });

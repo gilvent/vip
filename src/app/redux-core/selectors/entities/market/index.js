@@ -15,7 +15,7 @@ function filterPrices(ticker){
     }
     return prices;
 }
-export default authSelectors = {
+export default marketSelectors = {
     getMarket,
     getTicker,
     getPrices
